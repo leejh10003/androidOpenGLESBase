@@ -24,6 +24,17 @@ public class Stage extends GLSurfaceView {
         super (context, attrs);
         setEGLConfigChooser(8, 8, 8, 8, 0, 0);
         setRenderer(new MyRenderer());
+        float vertices[] = {
+                -0.5f, -0.5f,  0.0f,  // 0. left-bottom
+                0.5f, -0.5f,  0.0f,  // 1. right-bottom
+                -0.5f,  0.5f,  0.0f,  // 2. left-top
+                0.5f,  0.5f,  0.0f   // 3. right-top
+        };
+        ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+        vbb.order(ByteOrder.nativeOrder());
+        vertexBuffer = vbb.asFloatBuffer();
+        vertexBuffer.put(vertices);
+        vertexBuffer.position(0);
     }
     private class MyRenderer implements GLSurfaceView.Renderer{
         public final void onDrawFrame(GL10 gl){
